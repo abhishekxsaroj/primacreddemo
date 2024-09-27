@@ -400,5 +400,32 @@
             });
 
         })(window.jQuery);
-
-
+ 
+      
+      
+        //for service hover effect in mobile view 
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if the device is a touch device
+            var isTouchDevice = 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+          
+            if (isTouchDevice) {
+              // Get all xb-service2 elements
+              var serviceItems = document.querySelectorAll('.xb-service2');
+          
+              // Add click event listener to each service item
+              serviceItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                  // Toggle the visibility of titles and subtitles
+                  item.classList.toggle('hide-titles');
+                });
+              });
+            }
+          });
+          
+          
+          
+          
+          
+          
+          
+          

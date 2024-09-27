@@ -4706,23 +4706,68 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
     -ms-transform: translateY(40px);
     transform: translateY(40px); }
     @media (max-width: 991px) {
+      .xb-service2 {
+        overflow: hidden;
+        display: inline-block;
+        margin-bottom: 20px; /* Adjust as needed for spacing */
+        position: relative; /* Ensure relative positioning for proper layering */
+      }
+    
       .xb-service2 .xb-item--title {
-        font-size: 30px; } }
-    .xb-service2 .xb-item--title a {
-      color: currentColor; }
-  .xb-service2 .xb-item--sub-title {
-    font-size: 20px;
-    color: #FFF;
-    font-weight: 500;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transform: translateY(40px);
-    -ms-transform: translateY(40px);
-    transform: translateY(40px);
-    display: inline-block; }
+        font-size: 30px;
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        position: relative; /* Ensure relative positioning for proper layering */
+        z-index: 2; /* Ensure titles are above other content */
+      }
+    
+      .xb-service2 .xb-item--sub-title {
+        font-size: 20px;
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        position: relative; /* Ensure relative positioning for proper layering */
+        z-index: 2; /* Ensure subtitles are above other content */
+      }
+    
+      .xb-service2 .xb-item--image::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        background: linear-gradient(359deg, var(--color-primary) 5.54%, rgba(111, 136, 9, 0) 84.62%);
+        transition: opacity 0.3s;
+        z-index: 1; /* Ensure gradient overlay is behind titles */
+      }
+    
+      .xb-service2 .xb-item--image img {
+        transition: 0.3s;
+        filter: grayscale(100%);
+        z-index: 2; /* Ensure image is above gradient overlay */
+      }
+    
+      /* Hide titles and subtitles by default */
+      .xb-service2 .xb-item--title,
+      .xb-service2 .xb-item--sub-title {
+        opacity: 1; /* Ensure titles and subtitles are visible */
+        visibility: visible;
+        transform: translateY(0);
+      }
+    
+      /* Show the gradient overlay */
+      .xb-service2 .xb-item--image::before {
+        opacity: 0.5; /* Adjust opacity as desired */
+      }
+    }
+    
+    
+                   
 
 .service-btn {
   position: absolute;
