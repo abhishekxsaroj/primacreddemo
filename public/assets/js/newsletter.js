@@ -10,49 +10,31 @@ const firebaseConfig = {
     measurementId: "G-PSQDXN60ER"
   };
   
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    console.log("Firebase initialized");
+// Reference to the "newsletter" collection in Realtime Database
+const database = firebase.database();
+const newsletterRef = database.ref("newsletter");
 
-    // Reference to your Firebase database
-    const newnewsletterDB = firebase.database().ref("newsletter");
+// Form submission handling
+document.getElementById('newsletterForm').addEventListener('submit', function (event) {
+    event.preventDefault();  // Prevent form from reloading the page
 
-    // Function to handle form submission
-    document.getElementById("newsletterForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent default form submission
-        console.log("Form submitted");
+    // Get the email from the input field
+    const email = document.getElementById('newsletterEmail').value;
 
-        // Get email value from input field
-        var email = document.getElementById("newsletterEmail").value;
-        console.log("Email: ", email);
-
-        // Check if email is empty
-        if (!email) {
-            alert("Please enter your email."); // Notify user to enter email
-            return;
-        }
-
-        // Save email to Firebase
-        saveEmail(email);
-
-        // Display alert message
-        alert("Thank you for subscribing to our newsletter!");
-
-        // Reset the form after submission
-        document.getElementById("newsletterForm").reset();
+    // Push the email to the Firebase Realtime Database
+    newsletterRef.push({
+        email: email,
+        timestamp: new Date().toISOString()  // Add a timestamp
+    })
+    .then(() => {
+        alert("Thank you for subscribing to the newsletter!");
+        document.getElementById('newsletterForm').reset();  // Clear the form
+    })
+    .catch((error) => {
+        console.error("Error submitting form: ", error);
+        alert("There was an error submitting your subscription. Please try again.");
     });
-
-    // Function to save email to Firebase database
-    function saveEmail(email) {
-        var newnewsletter = newnewsletterDB.push();
-        newnewsletter.set({
-            email: email
-        }, function(error) {
-            if (error) {
-                console.log("Error saving data: ", error);
-            } else {
-                console.log("Data saved successfully");
-            }
-        });
-    }
+});
